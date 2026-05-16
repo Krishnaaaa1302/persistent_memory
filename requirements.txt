@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+chromadb
+sentence-transformers
+transformers
+accelerate
+bitsandbytes        
+pydantic
+python-dotenv
+httpx
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch
+torchvision
+torchaudio
+openai              
