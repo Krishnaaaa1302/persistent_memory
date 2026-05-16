@@ -1,14 +1,1 @@
-# Environment
 .env
-.env.*
-
-# Python
-__pycache__/
-*.pyc
-venv/
-
-# Node
-node_modules/
-
-# VSCode
-.vscode/
