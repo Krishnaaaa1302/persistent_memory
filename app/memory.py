@@ -1,5 +1,5 @@
 import chromadb
-from embedder import embed
+from app.embedder import embed
 from datetime import datetime,UTC
 import uuid
 

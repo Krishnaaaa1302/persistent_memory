@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
-from models import ChatRequest, ChatResponse
-from memory import store_memory, retrieve_memories
-from llm import chat
+from app.models import ChatRequest, ChatResponse
+from app.memory import store_memory, retrieve_memories
+from app.llm import chat
 import time
 
 
@@ -22,6 +22,9 @@ async def chat_endpoint(req : ChatRequest):
     except Exception as e:
         raise HTTPException(status_code = 500, detail = str(e))
     
+    if reply is None:
+        reply = ""
+    
     store_memory(req.user_id, f"User said: {req.message}")
     store_memory(req.user_id, f"Assistant Replied: {reply}", role='assistant')
 
@@ -33,8 +36,7 @@ async def chat_endpoint(req : ChatRequest):
     ])
 
     latency = (time.time() - t0) * 1000
-    safe_reply = reply or ""
-    return ChatResponse(reply = safe_reply , memories_used = len(memories), latency_ms = round(latency))
+    return ChatResponse(reply = reply , memories_used = len(memories), latency_ms = round(latency))
 
 @app.get('/memories/{user_id}')
 async def list_memories(user_id: str,limit: int = 20):
